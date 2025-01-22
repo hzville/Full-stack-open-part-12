@@ -1,0 +1,4 @@
+docker start -i xenodochial_jang
+apt install -y nodejs
+node /usr/src/app/index.js
+exit
