@@ -1,0 +1,7 @@
+docker start -i musing_vaughan
+nano usr/src/app/index.js
+console.log('Hello World')
+ctrl+x
+y
+enter
+exit
