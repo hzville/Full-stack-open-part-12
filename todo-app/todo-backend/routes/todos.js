@@ -1,6 +1,7 @@
 const express = require("express");
 const { Todo } = require("../mongo");
 const router = express.Router();
+const { incrAsync } = require("../redis/index");
 
 /* GET todos listing. */
 router.get("/", async (_, res) => {
@@ -10,11 +11,16 @@ router.get("/", async (_, res) => {
 
 /* POST todo to listing. */
 router.post("/", async (req, res) => {
-  const todo = await Todo.create({
-    text: req.body.text,
-    done: false,
-  });
-  res.send(todo);
+  try {
+    const todo = await Todo.create({
+      text: req.body.text,
+      done: false,
+    });
+    await incrAsync("added_todos");
+    res.send(todo);
+  } catch (error) {
+    console.log("failed creating new todo", error);
+  }
 });
 
 const singleRouter = express.Router();
