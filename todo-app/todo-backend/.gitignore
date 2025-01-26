@@ -63,3 +63,4 @@ typings/
 mongo_data
 rest
 *rest
+redis_data
