@@ -1,49 +1,18 @@
-import React from 'react'
+import React from "react";
+import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, deleteTodo, completeTodo }) => {
-  const onClickDelete = (todo) => () => {
-    deleteTodo(todo)
-  }
-
-  const onClickComplete = (todo) => () => {
-    completeTodo(todo)
-  }
-
+const TodoList = ({ todos, refreshTodos }) => {
   return (
     <>
-      {todos.map(todo => {
-        const doneInfo = (
-          <>
-            <span>This todo is done</span>
-            <span>
-              <button onClick={onClickDelete(todo)}> Delete </button>
-            </span>
-          </>
-        )
-
-        const notDoneInfo = (
-          <>
-            <span>
-              This todo is not done
-            </span>
-            <span>
-              <button onClick={onClickDelete(todo)}> Delete </button>
-              <button onClick={onClickComplete(todo)}> Set as done </button>
-            </span>
-          </>
-        )
-
-        return (
-          <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '70%', margin: 'auto' }}>
-            <span>
-              {todo.text} 
-            </span>
-            {todo.done ? doneInfo : notDoneInfo}
-          </div>
-        )
-      }).reduce((acc, cur) => [...acc, <hr />, cur], [])}
+      {todos
+        .map((todo) => {
+          return (
+            <TodoItem todo={todo} key={todo.text} refreshTodos={refreshTodos} />
+          );
+        })
+        .reduce((acc, cur) => [...acc, <hr />, cur], [])}
     </>
-  )
-}
+  );
+};
 
-export default TodoList
+export default TodoList;
