@@ -4,3 +4,5 @@ node_modules
 Dockerfile
 rest
 *rest
+mongo_data
+redis_data
